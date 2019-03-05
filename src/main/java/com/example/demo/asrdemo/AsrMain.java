@@ -42,9 +42,9 @@ public class AsrMain {
     private String cuid = "1234567JAVA";
  
  // 采样率固定值
-    private final int rate = 8000;//16000;
+    private final int rate = 16000;//16000;
 	
-    public boolean methodRaw = false; // 默认以json方式上传音频文件
+    public boolean methodRaw = false; // false以json方式上传音频文件
 
     private final String url = "http://vop.baidu.com/server_api"; // 可以改为https
 
@@ -88,6 +88,7 @@ public class AsrMain {
         params.put("token", token);
         params.put("cuid", cuid);
         params.put("channel", "1");
+//        params.put("lan", "zh");
         params.put("len", content.length);
         params.put("speech", speech);
 
@@ -104,7 +105,7 @@ public class AsrMain {
     }
 
     private byte[] getFileContent(String filename) throws DemoException, IOException {
-        File file = new File(filename);
+        /*File file = new File(filename);
         if (!file.canRead()) {
             System.err.println("文件不存在或者不可读: " + file.getAbsolutePath());
             throw new DemoException("file cannot read: " + file.getAbsolutePath());
@@ -112,7 +113,8 @@ public class AsrMain {
         FileInputStream is = null;
         try {
             is = new FileInputStream(file);
-            return ConnUtil.getInputStreamContent(mfile.getInputStream());
+//            return ConnUtil.getInputStreamContent(mfile.getInputStream());
+            return ConnUtil.getInputStreamContent(is);
         } finally {
             if (is != null) {
                 try {
@@ -121,8 +123,8 @@ public class AsrMain {
                     e.printStackTrace();
                 }
             }
-        }
-
+        }*/
+        return ConnUtil.getInputStreamContent(mfile.getInputStream());
     }
 
     private String base64Encode(byte[] content) {

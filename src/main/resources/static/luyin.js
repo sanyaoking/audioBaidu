@@ -46,6 +46,7 @@
                     index++;
                 }
                 return result;
+                // return data;
             }
             , encodeWAV: function () {
                 var sampleRate = Math.min(this.inputSampleRate, this.outputSampleRate);
