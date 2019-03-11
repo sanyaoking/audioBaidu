@@ -37,7 +37,7 @@ public class ConnUtil {
      * @throws DemoException
      */
     public static String getResponseString(HttpURLConnection conn) throws IOException, DemoException {
-        return new String(getResponseBytes(conn));
+        return new String(getResponseBytes(conn),"utf-8");
     }
 
     /**

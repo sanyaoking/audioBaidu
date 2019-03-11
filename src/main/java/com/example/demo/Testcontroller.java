@@ -18,15 +18,14 @@ public class Testcontroller {
     @RequestMapping("/speech")
     public @ResponseBody
     String speech(HttpServletRequest hrq, HttpServletResponse hsr) throws IOException, DemoException {
+        hrq.setCharacterEncoding("UTF-8");
         MultipartHttpServletRequest mul = (MultipartHttpServletRequest)hrq;
         MultipartFile file = mul.getFile("audioData");
-//       String speech8 = hrq.getParameter("speech8");
-        AsrMain.mfile=file;
-        AsrMain demo = new AsrMain();
+        AsrMain demo = new AsrMain(file);
         // 填写下面信息
         String result = demo.run();
+        System.out.println("UTF-8========测试！");
         System.out.println("result8========"+result);
-
         return result;
     }
 }

@@ -19,13 +19,17 @@ public class AsrMain {
     而这个接口是需要https://协议下的网站才能访问的
     所以我们需要给我们的网站配置https从而来使用这个接口。！！！！*/
     public static void main(String[] args) throws IOException, DemoException {
-        AsrMain demo = new AsrMain();
+        AsrMain demo = new AsrMain(null);
         // 填写下面信息
         String result = demo.run();
         System.out.println("识别结束：结果是：");
         System.out.println(result);
     }
-    public static MultipartFile mfile;
+    public AsrMain(MultipartFile mf){
+        this.mfile = mf;
+    }
+
+    public MultipartFile mfile;
     //  填写网页上申请的appkey 如 $apiKey="g8eBUMSokVB1BHGmgxxxxxx"
     private final String appKey = "Ojwk9VudXPDZPfGVnLnyeeF5";
 
@@ -107,26 +111,29 @@ public class AsrMain {
     }
 
     private byte[] getFileContent(String filename) throws DemoException, IOException {
-        /*File file = new File(filename);
-        if (!file.canRead()) {
-            System.err.println("文件不存在或者不可读: " + file.getAbsolutePath());
-            throw new DemoException("file cannot read: " + file.getAbsolutePath());
-        }
-        FileInputStream is = null;
-        try {
-            is = new FileInputStream(file);
+        if(this.mfile==null) {
+            File file = new File(filename);
+            if (!file.canRead()) {
+                System.err.println("文件不存在或者不可读: " + file.getAbsolutePath());
+                throw new DemoException("file cannot read: " + file.getAbsolutePath());
+            }
+            FileInputStream is = null;
+            try {
+                is = new FileInputStream(file);
 //            return ConnUtil.getInputStreamContent(mfile.getInputStream());
-            return ConnUtil.getInputStreamContent(is);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                return ConnUtil.getInputStreamContent(is);
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-        }*/
-        return ConnUtil.getInputStreamContent(mfile.getInputStream());
+        }else {
+            return ConnUtil.getInputStreamContent(mfile.getInputStream());
+        }
     }
 
     private String base64Encode(byte[] content) {
@@ -137,7 +144,7 @@ public class AsrMain {
 
         char[] chars = Base64Util.encode(content); // 1.7 及以下，不推荐，请自行跟换相关库
         String str = new String(chars);
-        System.out.print(str.length());
+//        System.out.print(str.length());
         return str;
     }
 
