@@ -15,7 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class AsrMain {
-
+    /*由于语音识别需要调用getUserMedia接口，
+    而这个接口是需要https://协议下的网站才能访问的
+    所以我们需要给我们的网站配置https从而来使用这个接口。！！！！*/
     public static void main(String[] args) throws IOException, DemoException {
         AsrMain demo = new AsrMain();
         // 填写下面信息
